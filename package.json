@@ -1,0 +1,25 @@
+{
+  "name": "alch.io",
+  "version": "0.1.0",
+  "description": "Web application for extracting tables from PDFs and images.",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scribeocr/alch.io"
+  },
+  "author": "Balearica",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/scribeocr/alch.io/issues"
+  },
+  "homepage": "https://github.com/scribeocr/alch.io#readme"
+}
