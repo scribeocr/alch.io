@@ -3,9 +3,7 @@ import { ScribeViewer } from './scribe-ui/viewer.js';
 
 import { elem } from './js/elems.js';
 import { Button, Collapse, Tooltip } from './lib/bootstrap.esm.bundle.min.js';
-import { getAllFileEntries } from './js/dragAndDrop.js';
 import { ProgressBars } from './js/progressBars.js';
-import { showHideElem } from './js/utils.js';
 import { insertAlertMessage } from './js/warningMessages.js';
 
 ScribeViewer.enableCanvasSelection = true;
@@ -88,7 +86,7 @@ elem.upload.openFileInput.addEventListener('change', () => {
 
   importFilesGUI(elem.upload.openFileInput.files);
   // This should run after importFiles so if that function fails the dropzone is not removed
-  showHideElem(/** @type {HTMLElement} */ (elem.upload.uploadDropZone.parentElement), false);
+  /** @type {HTMLElement} */ (elem.upload.uploadDropZone.parentElement).style.display = 'none';
 });
 
 let highlightActiveCt = 0;
@@ -116,7 +114,7 @@ elem.upload.uploadDropZone.addEventListener('drop', async (event) => {
   event.preventDefault();
 
   if (!event.dataTransfer) return;
-  const items = await getAllFileEntries(event.dataTransfer.items);
+  const items = await ScribeViewer.getAllFileEntries(event.dataTransfer.items);
 
   const filesPromises = await Promise.allSettled(items.map((x) => new Promise((resolve, reject) => {
     if (x instanceof File) {
@@ -134,7 +132,7 @@ elem.upload.uploadDropZone.addEventListener('drop', async (event) => {
   importFilesGUI(files);
 
   // This should run after importFiles so if that function fails the dropzone is not removed
-  showHideElem(/** @type {HTMLElement} */ (elem.upload.uploadDropZone.parentElement), false);
+  /** @type {HTMLElement} */ (elem.upload.uploadDropZone.parentElement).style.display = 'none';
 });
 
 /**
@@ -179,7 +177,7 @@ globalThis.fetchAndImportFiles = async (urls) => {
   elem.upload.uploadDropZone.setAttribute('style', 'display:none');
 };
 
-ScribeViewer.keyboardShortcutCallback = (event) => {
+ScribeViewer.interactionCallback = (event) => {
   // When a shortcut that interacts with canvas elements is triggered,
   // any focused UI element from the nav bar are unfocused.
   // If this does not occur, then the UI will remain focused,
@@ -491,12 +489,12 @@ const importFilesGUI = async (files) => {
     const noTextDialogElem = /** @type {HTMLDivElement} */ (document.getElementById('noTextDialog'));
     const noTextDialogRecognizeButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('noTextDialogRecognizeButton'));
     const importProgressCollapseLabelElem = /** @type {HTMLDivElement} */ (document.getElementById('importProgressCollapseLabel'));
-    showHideElem(noTextDialogElem, true);
+    noTextDialogElem.style.display = '';
     noTextDialogRecognizeButtonElem.addEventListener('click', () => {
       scribe.data.ocr.active = [];
       importProgressCollapseLabelElem.textContent = 'Recognizing Text';
       recognizeAllClick();
-      showHideElem(noTextDialogElem, false);
+      noTextDialogElem.style.display = 'none';
     });
   }
   if (scribe.inputData.pdfMode && scribe.inputData.pdfType === 'ocr') {
@@ -504,15 +502,15 @@ const importFilesGUI = async (files) => {
     const ocrTextDialogUseExistingButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('ocrTextDialogUseExistingButton'));
     const ocrTextDialogRecognizeButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('ocrTextDialogRecognizeButton'));
     const importProgressCollapseLabelElem = /** @type {HTMLDivElement} */ (document.getElementById('importProgressCollapseLabel'));
-    showHideElem(ocrTextDialogElem, true);
+    ocrTextDialogElem.style.display = '';
     ocrTextDialogRecognizeButtonElem.addEventListener('click', () => {
       scribe.data.ocr.active = [];
       importProgressCollapseLabelElem.textContent = 'Recognizing Text';
       recognizeAllClick();
-      showHideElem(ocrTextDialogElem, false);
+      ocrTextDialogElem.style.display = 'none';
     });
     ocrTextDialogUseExistingButtonElem.addEventListener('click', () => {
-      showHideElem(ocrTextDialogElem, false);
+      ocrTextDialogElem.style.display = 'none';
     });
   }
 

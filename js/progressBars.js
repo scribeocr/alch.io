@@ -1,5 +1,3 @@
-import { sleep } from './utils.js';
-
 export class ProgressBar {
   /**
    * @param {string} id - HTML element ID
@@ -44,7 +42,7 @@ export class ProgressBar {
 
     // eslint-disable-next-line no-use-before-define
     ProgressBars.active = this;
-    await sleep(0);
+    await new Promise((r) => setTimeout(r, 0));
   }
 
   async increment() {
@@ -57,7 +55,7 @@ export class ProgressBar {
     if (this.alwaysUpdateUI || this.value % 5 === 0 || this.value === this.maxValue || this.maxValue <= 10) {
       this.progressBar.setAttribute('aria-valuenow', this.value.toString());
       this.progressBar.setAttribute('style', `width: ${Math.max(this.value / this.maxValue * 100, 1)}%`);
-      await sleep(0);
+      await new Promise((r) => setTimeout(r, 0));
     }
 
     if (this.value >= this.maxValue) {
