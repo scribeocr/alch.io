@@ -47,6 +47,10 @@
 
         }
 
+        input {
+            font-size: .875rem !important;
+        }
+
         #debugCanvasParentDiv::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
@@ -117,10 +121,10 @@
             box-shadow: 0 0 0 0.1rem rgb(82 125 168 / 50%) !important;
         }
 
-        .btn-check:checked+.btn-secondary,
-        .btn-secondary.active,
-        .btn-secondary:active,
-        .show>.btn-secondary.dropdown-toggle {
+        .btn-check:checked+.btn-light,
+        .btn-light.active,
+        .btn-light:active,
+        .show>.btn-light.dropdown-toggle {
             color: #000;
             background-color: #dddddd;
             border-color: #dddddd;
@@ -233,20 +237,20 @@
                         <div class="btn-group">
                             <label>Page: <input type="text" class="form-control btn-sm border" id="pageNum"
                                     name="pageNum" autocomplete="off"
-                                    style="width:40px;height:40px;display:inline-block;text-align:center;padding:0;font-size:.875rem">
+                                    style="width:40px;height:40px;display:inline-block;text-align:center;padding:0;">
                                 /
                                 <span id="pageCount" style="display:inline-block;min-width:0.5rem"></span></label>
                         </div>
                         <!-- Zoom buttons only visible on larger screens to avoid cluttering the interface. -->
                         <div class="btn-group d-none d-xl-inline-flex" style="padding-left:20px;padding-right:20px">
-                            <button class="btn btn-secondary btn-sm border" id="zoomOut" aria-label="Zoom Out"
+                            <button class="btn btn-light btn-sm border" id="zoomOut" aria-label="Zoom Out"
                                 style="width:40px">-</button>
                             <div style="width:2px"></div>
-                            <button class="btn btn-secondary btn-sm border" id="zoomIn" aria-label="Zoom In"
+                            <button class="btn btn-light btn-sm border" id="zoomIn" aria-label="Zoom In"
                                 style="width:40px">+</button>
                         </div>
 
-                        <button type="button" class="btn btn-secondary btn-sm border" data-bs-toggle="collapse"
+                        <button type="button" class="btn btn-light btn-sm border" data-bs-toggle="collapse"
                             href="#editFindCollapse" style="text-align:left">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-search" viewBox="0 0 16 16">
@@ -267,7 +271,7 @@
                                         <div class="col col-md-6">
                                             <div class="btn-group" style="width:100%">
                                                 <button id="prevMatch" type="button"
-                                                    class="btn btn-secondary btn-sm border">
+                                                    class="btn btn-light btn-sm border">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-chevron-up"
                                                         viewBox="0 0 16 16">
@@ -275,7 +279,7 @@
                                                             d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
                                                     </svg></button>
                                                 <button id="nextMatch" type="button"
-                                                    class="btn btn-secondary btn-sm border">
+                                                    class="btn btn-light btn-sm border">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-chevron-down"
                                                         viewBox="0 0 16 16">
@@ -301,8 +305,7 @@
                                     <div class="col col-lg-2">
                                         <label>Layout Elements</label>
                                         <div class="btn-group mb-2" style="width:100%;">
-                                            <button type="button" id="addDataTable"
-                                                class="btn btn-secondary btn-sm border"
+                                            <button type="button" id="addDataTable" class="btn btn-light btn-sm border"
                                                 style="width:100%;text-align:left">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
@@ -315,7 +318,7 @@
                                         <label>General</label>
                                         <div class="btn-group" style="width:100%;">
                                             <div class="form-group" style="width:100%;">
-                                                <button type="button" class="btn btn-secondary btn-sm border"
+                                                <button type="button" class="btn btn-light btn-sm border"
                                                     data-bs-toggle="collapse" href="#setLayoutBoxInclusionRulesDropdown"
                                                     style="min-width:100%;text-align:left">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -333,24 +336,24 @@
                                                     <input type="radio" class="btn-check" name="btnRadioInclusionRule1"
                                                         id="setLayoutBoxInclusionRuleMajority" autocomplete="off"
                                                         checked>
-                                                    <label class="btn btn-secondary btn-sm border"
+                                                    <label class="btn btn-light btn-sm border"
                                                         for="setLayoutBoxInclusionRuleMajority"
                                                         style="width:40%">Majority</label>
                                                     <input type="radio" class="btn-check" name="btnRadioInclusionRule1"
                                                         id="setLayoutBoxInclusionRuleLeft" autocomplete="off">
-                                                    <label class="btn btn-secondary btn-sm border"
+                                                    <label class="btn btn-light btn-sm border"
                                                         for="setLayoutBoxInclusionRuleLeft">Left</label>
                                                 </div>
                                                 <div class="btn-group mt-1" role="group"
                                                     aria-label="Basic radio toggle button group">
                                                     <input type="radio" class="btn-check" name="btnRadioInclusionLevel"
                                                         id="setLayoutBoxInclusionLevelWord" autocomplete="off" checked>
-                                                    <label class="btn btn-secondary btn-sm border"
+                                                    <label class="btn btn-light btn-sm border"
                                                         for="setLayoutBoxInclusionLevelWord"
                                                         style="width:40%">Word</label>
                                                     <input type="radio" class="btn-check" name="btnRadioInclusionLevel"
                                                         id="setLayoutBoxInclusionLevelLine" autocomplete="off">
-                                                    <label class="btn btn-secondary btn-sm border"
+                                                    <label class="btn btn-light btn-sm border"
                                                         for="setLayoutBoxInclusionLevelLine">Line</label>
                                                 </div>
                                             </div>
@@ -360,8 +363,8 @@
                                         <label>Defaults</label>
                                         <div class="form-group mb-2">
                                             <button type="button" id="setDefaultLayout"
-                                                class="btn btn-secondary btn-sm border"
-                                                style="width:100%;text-align:left" disabled>
+                                                class="btn btn-light btn-sm border" style="width:100%;text-align:left"
+                                                disabled>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-diagram-3-fill"
                                                     viewBox="0 0 16 16">
@@ -370,8 +373,7 @@
                                                 </svg> Save As Default</button>
                                         </div>
                                         <div class="form-group">
-                                            <button type="button" id="revertLayout"
-                                                class="btn btn-secondary btn-sm border"
+                                            <button type="button" id="revertLayout" class="btn btn-light btn-sm border"
                                                 style="width:100%;text-align:left" disabled>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-arrow-counterclockwise"
@@ -409,15 +411,13 @@
                                             <option value="NimbusSans">Nimbus Sans</option>
                                         </select>
                                         <div class="input-group" style="padding-top:0.4rem;">
-                                            <button
-                                                class="col col-xl-2 col-md-3 btn btn-secondary btn-sm border order-0"
+                                            <button class="col col-xl-2 col-md-3 btn btn-light btn-sm border order-0"
                                                 id="fontMinus" disabled>-</button>
                                             <input type="text"
                                                 class="form-control btn-sm border col-12 col-xl-3 col-md-4 order-last order-md-1 mt-2 mt-md-0"
                                                 id="fontSize" size="1" style="flex:unset;width:35%" autocomplete="off"
                                                 disabled>
-                                            <button
-                                                class="col col-md-3 col-xl-2 btn btn-secondary btn-sm border order-2"
+                                            <button class="col col-md-3 col-xl-2 btn btn-light btn-sm border order-2"
                                                 id="fontPlus" disabled>+</button>
                                         </div>
                                     </div>
@@ -426,7 +426,7 @@
                                         <div class="row">
                                             <div class="col-12 col-md-6 px-1 px-sm-2 pb-2">
                                                 <button type="button" id="styleItalic"
-                                                    class="btn btn-secondary btn-sm border styleButton"
+                                                    class="btn btn-light btn-sm border styleButton"
                                                     style="text-align:left;width:100%;display:flex;align-items:center;"
                                                     data-bs-toggle="button" disabled>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -438,7 +438,7 @@
                                             </div>
                                             <div class="col-12 col-md-6 px-1 px-sm-2 pb-2">
                                                 <button type="button" id="styleBold"
-                                                    class="btn btn-secondary btn-sm border styleButton"
+                                                    class="btn btn-light btn-sm border styleButton"
                                                     style="text-align:left;width:100%;display:flex;align-items:center;"
                                                     data-bs-toggle="button" disabled>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -449,7 +449,7 @@
                                             </div>
                                             <div class="col-12 col-md-6 px-1 px-sm-2">
                                                 <button type="button" id="styleSmallCaps"
-                                                    class="btn btn-secondary btn-sm border styleButton"
+                                                    class="btn btn-light btn-sm border styleButton"
                                                     style="text-align:left;width:100%;display:flex;align-items:center;"
                                                     data-bs-toggle="button" disabled>
                                                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
@@ -466,7 +466,7 @@
                                             </div>
                                             <div class="col-12 col-md-6 px-1 px-sm-2">
                                                 <button type="button" id="styleSuper"
-                                                    class="btn btn-secondary btn-sm border styleButton"
+                                                    class="btn btn-light btn-sm border styleButton"
                                                     style="text-align:left;width:100%;display:flex;align-items:center;"
                                                     data-bs-toggle="button">
                                                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
@@ -488,7 +488,7 @@
                                         <div class="row ms-2">
                                             <div class="col-12 px-1 px-sm-2 pb-2">
                                                 <button type="button" id="deleteWord"
-                                                    class="btn btn-secondary btn-sm border"
+                                                    class="btn btn-light btn-sm border"
                                                     style="width:100%;text-align:left;display:flex;white-space:nowrap"
                                                     disabled>
                                                     <div>
@@ -505,7 +505,7 @@
                                             <div class="col-12 px-1 px-sm-2">
                                                 <div class="btn-group" style="width:100%;">
                                                     <button type="button" id="recognizeWord"
-                                                        class="btn btn-secondary btn-sm border"
+                                                        class="btn btn-light btn-sm border"
                                                         style="width:100%;text-align:left;white-space:nowrap" disabled>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"
@@ -519,7 +519,7 @@
                                                             class="d-none d-md-inline-block">Recognize
                                                             Word</span></button>
                                                     <button type="button" id="recognizeWordDropdown"
-                                                        class="btn btn-secondary btn-sm border dropdown-toggle dropdown-toggle-split"
+                                                        class="btn btn-light btn-sm border dropdown-toggle dropdown-toggle-split"
                                                         data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                                         <span class="visually-hidden">Toggle Dropdown</span>
                                                     </button>
@@ -539,7 +539,7 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <button type="button" id="editBaseline"
-                                                    class="btn btn-secondary btn-sm border"
+                                                    class="btn btn-light btn-sm border"
                                                     style="min-width:100%;text-align:left;padding-right:0" disabled>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-align-middle"
@@ -561,7 +561,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group" style="margin-top:0.5rem">
-                                                <button type="button" class="btn btn-secondary btn-sm border"
+                                                <button type="button" class="btn btn-light btn-sm border"
                                                     data-bs-toggle="collapse" href="#editOptions"
                                                     style="min-width:100%;text-align:left">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -653,8 +653,8 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown btn-sm border"
-                                                        type="button" id="downloadFormat" data-bs-toggle="dropdown"
+                                                    <button class="btn btn-light dropdown btn-sm border" type="button"
+                                                        id="downloadFormat" data-bs-toggle="dropdown"
                                                         style="width:100%;text-align:left;display:flex;align-items:center">
                                                         <svg id="formatLabelSVG" xmlns="http://www.w3.org/2000/svg"
                                                             width="16" height="16" fill="currentColor"
@@ -683,7 +683,7 @@
                                             <div class="form-group">
                                                 <button data-bs-toggle="collapse" id="pdfPagesLabel"
                                                     data-bs-target="#collapsePages" type="button"
-                                                    class="btn btn-secondary btn-sm border"
+                                                    class="btn btn-light btn-sm border"
                                                     style="min-width:100%;text-align:left">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
@@ -734,7 +734,8 @@
                         <div id="alertDownloadDiv">
                         </div>
                         <div class="collapse" id="generate-download-progress-collapse">
-                            <div class="row" style="padding-top:0.4rem;margin:0.4rem;border-top:1px solid #dadada;">
+                            <div class="row"
+                                style="padding-top:0.4rem;margin-left:0.4rem;border-top:1px solid #dadada;">
                                 <div class="col col-lg-2" style="padding-left:0">
                                     <div>Generating File</div>
                                 </div>
@@ -769,7 +770,7 @@
 
                 <div class="row">
                     <div id="import-progress-collapse" style="max-height:0;overflow:hidden">
-                        <div class="row" style="padding-top:0.4rem;margin:0.4rem;">
+                        <div class="row" style="padding-top:0.4rem;margin-left:0.4rem;">
                             <div class="col col-lg-2" style="padding-left:0">
                                 <div id="importProgressCollapseLabel">Loading Files</div>
                             </div>
