@@ -1,5 +1,7 @@
 # Alch.io
-Alch.io is a web application for extracting tabular data from scanned documents and PDF files.  After importing a series of images or PDF document to alch.io, users can recognize text (if needed), select and edit regions containing tables, and export those tables as an Excel file.
+Alch.io is a web application for extracting tabular data from scanned documents and PDF files.  After importing a series of images or PDF document to alch.io, users can recognize text (if needed), select and edit regions containing tables, and export those tables as an Excel file.  Live application at [alch.io](https://alch.io).  Documentation at [docs.alch.io](https://docs.alch.io).
+
+<img alt="Alch.io Image" src="./docs/img/alch_readme_1.png">
 
 # Running
 Alch.io can be run by using the public site at [alch.io](https://alch.io).  The entire program runs in your browser--your documents are not sent to a remote server. 
