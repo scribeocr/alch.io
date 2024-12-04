@@ -471,6 +471,8 @@ const importFilesGUI = async (files) => {
   ProgressBars.active = ProgressBars.import;
   ProgressBars.active.show(files.length, 0);
 
+  const hocrMode = files.some((x) => x.name.match(/\.hocr$/i));
+
   await scribe.importFiles(files);
 
   ScribeViewer.displayPage(ScribeViewer.state.cp.n);
@@ -485,7 +487,7 @@ const importFilesGUI = async (files) => {
     });
   }
 
-  if (scribe.inputData.imageMode || scribe.inputData.pdfMode && scribe.inputData.pdfType === 'image') {
+  if (!hocrMode && (scribe.inputData.imageMode || scribe.inputData.pdfMode && scribe.inputData.pdfType === 'image')) {
     const noTextDialogElem = /** @type {HTMLDivElement} */ (document.getElementById('noTextDialog'));
     const noTextDialogRecognizeButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('noTextDialogRecognizeButton'));
     const importProgressCollapseLabelElem = /** @type {HTMLDivElement} */ (document.getElementById('importProgressCollapseLabel'));
@@ -497,7 +499,7 @@ const importFilesGUI = async (files) => {
       noTextDialogElem.style.display = 'none';
     });
   }
-  if (scribe.inputData.pdfMode && scribe.inputData.pdfType === 'ocr') {
+  if (!hocrMode && scribe.inputData.pdfMode && scribe.inputData.pdfType === 'ocr') {
     const ocrTextDialogElem = /** @type {HTMLDivElement} */ (document.getElementById('ocrTextDialog'));
     const ocrTextDialogUseExistingButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('ocrTextDialogUseExistingButton'));
     const ocrTextDialogRecognizeButtonElem = /** @type {HTMLLinkElement} */ (document.getElementById('ocrTextDialogRecognizeButton'));
@@ -766,6 +768,33 @@ function updatePdfPagesLabel() {
   elem.download.pdfPageMax.value = maxValue ? maxValue.toString() : '';
   elem.download.pdfPagesLabelText.innerText = pagesStr;
 }
+
+function setFormatLabel(x) {
+  if (x.toLowerCase() === 'hocr') {
+    // elem.download.textOptions.setAttribute('style', 'display:none');
+    // elem.download.pdfOptions.setAttribute('style', 'display:none');
+    // elem.download.docxOptions.setAttribute('style', 'display:none');
+    elem.download.xlsxOptions.setAttribute('style', 'display:none');
+
+    elem.download.formatLabelSVG.innerHTML = String.raw`  <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM3.527 11.85h-.893l-.823 1.439h-.036L.943 11.85H.012l1.227 1.983L0 15.85h.861l.853-1.415h.035l.85 1.415h.908l-1.254-1.992 1.274-2.007Zm.954 3.999v-2.66h.038l.952 2.159h.516l.946-2.16h.038v2.661h.715V11.85h-.8l-1.14 2.596h-.025L4.58 11.85h-.806v3.999h.706Zm4.71-.674h1.696v.674H8.4V11.85h.791v3.325Z"/>`;
+
+    elem.download.formatLabelText.innerHTML = 'HOCR';
+    elem.download.downloadFileName.value = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}.hocr`;
+  } else if (x.toLowerCase() === 'xlsx') {
+    // elem.download.textOptions.setAttribute('style', 'display:none');
+    // elem.download.pdfOptions.setAttribute('style', 'display:none');
+    // elem.download.docxOptions.setAttribute('style', 'display:none');
+    elem.download.xlsxOptions.setAttribute('style', '');
+
+    elem.download.formatLabelSVG.innerHTML = String.raw`  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z"/>`;
+
+    elem.download.formatLabelText.innerHTML = 'Xlsx';
+    elem.download.downloadFileName.value = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}.xlsx`;
+  }
+}
+
+elem.download.formatLabelOptionHOCR.addEventListener('click', () => { setFormatLabel('hocr'); });
+elem.download.formatLabelOptionXlsx.addEventListener('click', () => { setFormatLabel('xlsx'); });
 
 async function handleDownloadGUI() {
   elem.download.download.removeEventListener('click', handleDownloadGUI);
