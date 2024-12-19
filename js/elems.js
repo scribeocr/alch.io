@@ -143,6 +143,32 @@ class download {
   static formatLabelOptionXlsx = /** @type {HTMLLinkElement} */(document.getElementById('formatLabelOptionXlsx'));
 }
 
+class info {
+
+  // Debug output.
+  static downloadDebugCsv = /** @type {HTMLDivElement} */(document.getElementById('downloadDebugCsv'));
+
+  static downloadSourcePDF = /** @type {HTMLDivElement} */(document.getElementById('downloadSourcePDF'));
+
+  static downloadStaticVis = /** @type {HTMLDivElement} */(document.getElementById('downloadStaticVis'));
+
+  static downloadPDFFonts = /** @type {HTMLDivElement} */(document.getElementById('downloadPDFFonts'));
+
+  static debugPrintCoords = /** @type {HTMLInputElement} */(document.getElementById('debugPrintCoords'));
+
+  static debugDownloadCanvas = /** @type {HTMLInputElement} */(document.getElementById('debugDownloadCanvas'));
+
+  static debugDownloadImage = /** @type {HTMLInputElement} */(document.getElementById('debugDownloadImage'));
+
+  static debugPrintWordsCanvas = /** @type {HTMLInputElement} */(document.getElementById('debugPrintWordsCanvas'));
+
+  static debugPrintWordsOCR = /** @type {HTMLInputElement} */(document.getElementById('debugPrintWordsOCR'));
+
+  static debugEvalLine = /** @type {HTMLInputElement} */(document.getElementById('debugEvalLine'));
+
+}
+
+
 class canvas {
   static legendCanvasParentDiv = /** @type {HTMLDivElement} */(document.getElementById('legendCanvasParentDiv'));
 
@@ -165,4 +191,6 @@ export class elem {
   static layout = layout;
 
   static download = download;
+
+  static info = info;
 }

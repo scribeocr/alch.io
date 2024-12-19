@@ -823,3 +823,138 @@ async function handleDownloadGUI() {
   elem.download.download.disabled = false;
   elem.download.download.addEventListener('click', handleDownloadGUI);
 }
+
+elem.info.downloadDebugCsv.addEventListener('click', async () => {
+  const fileName = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}.csv`;
+  scribe.utils.writeDebugCsv(scribe.data.ocr.active, fileName);
+});
+
+elem.info.downloadSourcePDF.addEventListener('click', async () => {
+  const muPDFScheduler = await scribe.data.image.getMuPDFScheduler(1);
+  const w = muPDFScheduler.workers[0];
+
+  if (!w.pdfDoc) {
+    console.log('No PDF document is open.');
+    return;
+  }
+
+  const content = await w.write({
+    doc1: w.pdfDoc, humanReadable: false,
+  });
+
+  const pdfBlob = new Blob([content], { type: 'application/octet-stream' });
+
+  const fileName = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}.pdf`;
+  scribe.utils.saveAs(pdfBlob, fileName);
+});
+
+elem.info.downloadStaticVis.addEventListener('click', async () => {
+  const fileName = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}.png`;
+  const pngBlob = await scribe.utils.renderPageStatic(scribe.data.ocr.active[ScribeViewer.state.cp.n]);
+  scribe.utils.saveAs(pngBlob, fileName);
+});
+
+elem.info.downloadPDFFonts.addEventListener('click', async () => {
+  const muPDFScheduler = await scribe.data.image.muPDFScheduler;
+  if (!muPDFScheduler) return;
+  muPDFScheduler.extractAllFonts().then(async (x) => {
+    for (let i = 0; i < x.length; i++) {
+      scribe.utils.saveAs(x[i], `font_${String(i).padStart(2, '0')}.ttf`);
+    }
+  });
+});
+
+export async function evalSelectedLine() {
+  const selectedObjects = ScribeViewer.CanvasSelection.getKonvaWords();
+  if (!selectedObjects || selectedObjects.length === 0) return;
+
+  const word0 = selectedObjects[0].word;
+
+  const res = await scribe.evalOCRPage({ page: word0.line, view: true });
+
+  await scribe.utils.drawDebugImages({ canvas: canvasDebug, compDebugArrArr: [[res.debug[0]]], context: 'browser' });
+}
+
+export async function downloadCanvas() {
+  const dims = scribe.data.pageMetrics[ScribeViewer.state.cp.n].dims;
+
+  const startX = ScribeViewer.layerText.x() > 0 ? Math.round(ScribeViewer.layerText.x()) : 0;
+  const startY = ScribeViewer.layerText.y() > 0 ? Math.round(ScribeViewer.layerText.y()) : 0;
+  const width = dims.width * ScribeViewer.layerText.scaleX();
+  const height = dims.height * ScribeViewer.layerText.scaleY();
+
+  const canvasDataStr = ScribeViewer.stage.toDataURL({
+    x: startX, y: startY, width, height,
+  });
+
+  const fileName = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}_canvas_${String(ScribeViewer.state.cp.n)}.png`;
+  const imgBlob = scribe.utils.imageStrToBlob(canvasDataStr);
+  scribe.utils.saveAs(imgBlob, fileName);
+}
+
+export async function downloadImage(n) {
+  const image = scribe.opt.colorMode === 'binary' ? await scribe.data.image.getBinary(n) : await scribe.data.image.getNative(n);
+  const filenameBase = `${elem.download.downloadFileName.value.replace(/\.\w{1,4}$/, '')}`;
+
+  const fileName = `${filenameBase}_${String(n).padStart(3, '0')}.${image.format}`;
+  const imgBlob = scribe.utils.imageStrToBlob(image.src);
+  scribe.utils.saveAs(imgBlob, fileName);
+}
+
+export async function downloadCurrentImage() {
+  await downloadImage(ScribeViewer.state.cp.n);
+}
+
+export async function downloadAllImages() {
+  const binary = scribe.opt.colorMode === 'binary';
+  for (let i = 0; i < scribe.data.image.pageCount; i++) {
+    await downloadImage(i);
+    // Not all files will be downloaded without a delay between downloads
+    await new Promise((r) => setTimeout(r, 200));
+  }
+}
+
+export function printSelectedWords(printOCR = true) {
+  const selectedObjects = ScribeViewer.CanvasSelection.getKonvaWords();
+  if (!selectedObjects) return;
+  for (let i = 0; i < selectedObjects.length; i++) {
+    if (printOCR) {
+      printOcrWordCode(selectedObjects[i].word);
+      console.log(selectedObjects[i].word);
+    } else {
+      console.log(selectedObjects[i]);
+    }
+  }
+}
+
+/**
+ * Print the code needed to access a specific OCR word.
+ * This is useful for generating automated tests.
+ * @param {OcrWord} word
+ */
+const printOcrWordCode = (word) => {
+  if (!scribe.data.ocr.active[ScribeViewer.state.cp.n]) return;
+  let i = 0;
+  let j = 0;
+  for (i = 0; i < scribe.data.ocr.active[ScribeViewer.state.cp.n].lines.length; i++) {
+    const line = scribe.data.ocr.active[ScribeViewer.state.cp.n].lines[i];
+    for (j = 0; j < line.words.length; j++) {
+      if (line.words[j].id === word.id) {
+        console.log(`scribe.data.ocr.active[${ScribeViewer.state.cp.n}].lines[${i}].words[${j}]`);
+        return;
+      }
+    }
+  }
+};
+
+const canvasDebug = /** @type {HTMLCanvasElement} */ (document.getElementById('g'));
+
+elem.info.debugPrintCoords.addEventListener('click', () => (ScribeViewer.mode = 'printCoords'));
+
+elem.info.debugDownloadCanvas.addEventListener('click', downloadCanvas);
+elem.info.debugDownloadImage.addEventListener('click', downloadCurrentImage);
+
+elem.info.debugPrintWordsOCR.addEventListener('click', () => printSelectedWords(true));
+elem.info.debugPrintWordsCanvas.addEventListener('click', () => printSelectedWords(false));
+
+elem.info.debugEvalLine.addEventListener('click', evalSelectedLine);
