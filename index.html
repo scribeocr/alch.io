@@ -612,6 +612,11 @@
                                                             </a>
                                                         </label>
                                                     </div>
+                                                    <div class="form-check form-switch">
+                                                        <label><input class="form-check-input" type="checkbox"
+                                                                id="kerning" checked> Kerning
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -784,71 +789,86 @@
                                     </div>
                                     <div class="col col-lg-3">
                                         <div class="form-group" style="margin-top:0.4rem">
-                                          <button type="button" class="btn btn-light btn-sm border" data-bs-toggle="collapse"
-                                            href="#debugOutput" style="min-width:100%;text-align:left">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
-                                                <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5"/>
-                                              </svg>                                              
-                                            Debugging Output</button>
+                                            <button type="button" class="btn btn-light btn-sm border"
+                                                data-bs-toggle="collapse" href="#debugOutput"
+                                                style="min-width:100%;text-align:left">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-lightbulb-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5" />
+                                                </svg>
+                                                Debugging Output</button>
                                         </div>
                                         <div class="collapse" id="debugOutput">
-                                          <div class="card card-body" style="padding:0.5rem;position:relative;top:5px">
-                                            <label>Print Selected Words to Console</label>
-                                            <div class="row">
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugPrintWordsOCR"
-                                                  style="width:100%;text-align:left">OCR Object</button>
-                                              </div>
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugPrintWordsCanvas"
-                                                  style="width:100%;text-align:left">Canvas Object</button>
-                                              </div>
+                                            <div class="card card-body"
+                                                style="padding:0.5rem;position:relative;top:5px">
+                                                <label>Print Selected Words to Console</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugPrintWordsOCR"
+                                                            style="width:100%;text-align:left">OCR Object</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugPrintWordsCanvas"
+                                                            style="width:100%;text-align:left">Canvas Object</button>
+                                                    </div>
+                                                </div>
+                                                <label>Download Debug Output</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugDownloadImage"
+                                                            style="width:100%;text-align:left">Raw Image</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugDownloadCanvas"
+                                                            style="width:100%;text-align:left">Canvas</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="downloadSourcePDF"
+                                                            style="width:100%;text-align:left">Source PDF</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="downloadDebugCsv"
+                                                            style="width:100%;text-align:left">Debug CSV</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="downloadStaticVis"
+                                                            style="width:100%;text-align:left">Static Vis</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="downloadPDFFonts" style="width:100%;text-align:left">PDF
+                                                            Fonts</button>
+                                                    </div>
+                                                </div>
+                                                <label>Misc</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugEvalLine"
+                                                            style="width:100%;text-align:left">Evaluate Line</button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button class="btn btn-light btn-sm border" type="button"
+                                                            id="debugPrintCoords"
+                                                            style="width:100%;text-align:left">Print Coords</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <label>Download Debug Output</label>
-                                            <div class="row">
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugDownloadImage"
-                                                  style="width:100%;text-align:left">Raw Image</button>
-                                              </div>
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugDownloadCanvas"
-                                                  style="width:100%;text-align:left">Canvas</button>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="downloadSourcePDF"
-                                                  style="width:100%;text-align:left">Source PDF</button>
-                                              </div>
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="downloadDebugCsv"
-                                                  style="width:100%;text-align:left">Debug CSV</button>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="downloadStaticVis"
-                                                  style="width:100%;text-align:left">Static Vis</button>
-                                              </div>
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="downloadPDFFonts"
-                                                  style="width:100%;text-align:left">PDF Fonts</button>
-                                              </div>
-                                            </div>
-                                            <label>Misc</label>
-                                            <div class="row">
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugEvalLine"
-                                                  style="width:100%;text-align:left">Evaluate Line</button>
-                                              </div>
-                                              <div class="col">
-                                                <button class="btn btn-light btn-sm border" type="button" id="debugPrintCoords"
-                                                  style="width:100%;text-align:left">Print Coords</button>
-                                              </div>
-                                            </div>
-                                          </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

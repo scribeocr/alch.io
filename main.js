@@ -262,6 +262,11 @@ elem.edit.ligatures.addEventListener('change', () => {
   ScribeViewer.displayPage(ScribeViewer.state.cp.n);
 });
 
+elem.edit.kerning.addEventListener('change', () => {
+  scribe.opt.kerning = elem.edit.kerning.checked;
+  ScribeViewer.displayPage(ScribeViewer.state.cp.n);
+});
+
 /** @type {Array<import('./scribe-ui/js/viewerWordObjects.js').KonvaOcrWord>} */
 let objectsLine;
 
