@@ -407,25 +407,53 @@ function toggleSelectableWords(selectable = true) {
   });
 }
 
-function setDefaultLayoutClick() {
-  ScribeViewer.layout.setDefaultLayout(ScribeViewer.state.cp.n);
-  ScribeViewer.layout.setDefaultLayoutDataTable(ScribeViewer.state.cp.n);
-}
+elem.layout.layoutApplyPages.addEventListener('click', () => {
+  let layoutApplyPagesMin = parseInt(elem.layout.layoutApplyPagesMin.value);
+  let layoutApplyPagesMax = parseInt(elem.layout.layoutApplyPagesMax.value);
+  layoutApplyPagesMin = Math.max(0, layoutApplyPagesMin);
+  layoutApplyPagesMax = Math.min(scribe.data.pageMetrics.length - 1, layoutApplyPagesMax);
 
-function revertLayoutClick() {
-  scribe.data.layoutRegions.pages[ScribeViewer.state.cp.n].default = true;
-  scribe.data.layoutRegions.pages[ScribeViewer.state.cp.n].boxes = structuredClone(scribe.data.layoutRegions.defaultRegions);
-  scribe.data.layoutDataTables.pages[ScribeViewer.state.cp.n].default = true;
-  scribe.data.layoutDataTables.pages[ScribeViewer.state.cp.n].tables = structuredClone(scribe.data.layoutDataTables.defaultTables);
+  if (!layoutApplyPagesMin || !layoutApplyPagesMax || layoutApplyPagesMin > layoutApplyPagesMax) {
+    console.warn(`Invalid layout apply pages: ${layoutApplyPagesMin} ${layoutApplyPagesMax}`);
+    return;
+  }
+  ScribeViewer.layout.applyLayoutRegions(ScribeViewer.state.cp.n, layoutApplyPagesMin, layoutApplyPagesMax);
+  ScribeViewer.layout.applyLayoutDataTables(ScribeViewer.state.cp.n, layoutApplyPagesMin, layoutApplyPagesMax);
+});
 
-  ScribeViewer.displayPage(ScribeViewer.state.cp.n);
-}
+elem.layout.layoutApplyPagesMin.addEventListener('keyup', () => {
+  let layoutApplyPagesMin = parseInt(elem.layout.layoutApplyPagesMin.value);
+  let layoutApplyPagesMax = parseInt(elem.layout.layoutApplyPagesMax.value);
+  layoutApplyPagesMin = Math.max(0, layoutApplyPagesMin);
+  layoutApplyPagesMax = Math.min(scribe.data.pageMetrics.length - 1, layoutApplyPagesMax);
+
+  if (!layoutApplyPagesMin || !layoutApplyPagesMax || layoutApplyPagesMin > layoutApplyPagesMax) {
+    elem.layout.layoutApplyPages.disabled = true;
+  } else {
+    elem.layout.layoutApplyPages.disabled = false;
+  }
+});
+
+elem.layout.layoutApplyPagesMax.addEventListener('keyup', () => {
+  let layoutApplyPagesMin = parseInt(elem.layout.layoutApplyPagesMin.value);
+  let layoutApplyPagesMax = parseInt(elem.layout.layoutApplyPagesMax.value);
+  layoutApplyPagesMin = Math.max(0, layoutApplyPagesMin);
+  layoutApplyPagesMax = Math.min(scribe.data.pageMetrics.length - 1, layoutApplyPagesMax);
+
+  if (!layoutApplyPagesMin || !layoutApplyPagesMax || layoutApplyPagesMin > layoutApplyPagesMax) {
+    elem.layout.layoutApplyPages.disabled = true;
+  } else {
+    elem.layout.layoutApplyPages.disabled = false;
+  }
+});
 
 elem.layout.addDataTable.addEventListener('click', () => (ScribeViewer.mode = 'addLayoutBoxDataTable'));
 
-elem.layout.setDefaultLayout.addEventListener('click', () => setDefaultLayoutClick());
+elem.layout.deleteLayout.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.deleteSelectedLayoutDataTable();
+  ScribeViewer.CanvasSelection.deleteSelectedLayoutRegion();
+});
 
-elem.layout.revertLayout.addEventListener('click', () => revertLayoutClick());
 
 elem.layout.setLayoutBoxInclusionRuleMajority.addEventListener('click', () => ScribeViewer.layout.setLayoutBoxInclusionRuleClick('majority'));
 elem.layout.setLayoutBoxInclusionRuleLeft.addEventListener('click', () => ScribeViewer.layout.setLayoutBoxInclusionRuleClick('left'));
@@ -466,8 +494,7 @@ elem.nav.nextMatch.addEventListener('click', () => nextMatchClick());
 
 export function toggleLayoutButtons(disable = true) {
   elem.layout.addDataTable.disabled = disable;
-  elem.layout.setDefaultLayout.disabled = disable;
-  elem.layout.revertLayout.disabled = disable;
+  elem.layout.deleteLayout.disabled = disable;
 }
 
 ProgressBars.active = ProgressBars.import;
@@ -619,6 +646,21 @@ function calcMatchNumber(n) {
   }
   return `${String(matchPrev + 1)}-${String(matchPrev + 1 + (matchN - 1))}`;
 }
+
+elem.view.outlineWords.addEventListener('click', () => {
+  ScribeViewer.opt.outlineWords = elem.view.outlineWords.checked;
+  ScribeViewer.displayPage(ScribeViewer.state.cp.n);
+});
+
+elem.view.outlineLines.addEventListener('click', () => {
+  ScribeViewer.opt.outlineLines = elem.view.outlineLines.checked;
+  ScribeViewer.displayPage(ScribeViewer.state.cp.n);
+});
+
+elem.view.outlinePars.addEventListener('click', () => {
+  ScribeViewer.opt.outlinePars = elem.view.outlinePars.checked;
+  ScribeViewer.displayPage(ScribeViewer.state.cp.n);
+});
 
 // Users may select an edit action (e.g. "Add Word", "Recognize Word", etc.) but then never follow through.
 // This function cleans up any changes/event listners caused by the initial click in such cases.

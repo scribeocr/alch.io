@@ -47,6 +47,15 @@ class nav {
   static navLayout = /** @type {HTMLDivElement} */(document.getElementById('nav-layout'));
 }
 
+// There is no view tab in the UI, but the options in the View tab in scribeocr.com are included here for consistency.
+class view {
+  static outlineLines = /** @type {HTMLInputElement} */(document.getElementById('outlineLines'));
+
+  static outlineWords = /** @type {HTMLInputElement} */(document.getElementById('outlineWords'));
+
+  static outlinePars = /** @type {HTMLInputElement} */(document.getElementById('outlinePars'));
+}
+
 class edit {
   // Font size and style.
   static wordFont = /** @type {HTMLInputElement} */(document.getElementById('wordFont'));
@@ -105,9 +114,14 @@ class layout {
 
   static addDataTable = /** @type {HTMLInputElement} */(document.getElementById('addDataTable'));
 
-  static setDefaultLayout = /** @type {HTMLInputElement} */(document.getElementById('setDefaultLayout'));
+  static deleteLayout = /** @type {HTMLInputElement} */(document.getElementById('deleteLayout'));
 
-  static revertLayout = /** @type {HTMLInputElement} */(document.getElementById('revertLayout'));
+  static layoutApplyPagesMin = /** @type {HTMLInputElement} */(document.getElementById('layoutApplyPagesMin'));
+
+  static layoutApplyPagesMax = /** @type {HTMLInputElement} */(document.getElementById('layoutApplyPagesMax'));
+
+  static layoutApplyPages = /** @type {HTMLButtonElement} */(document.getElementById('layoutApplyPages'));
+
 }
 
 class download {
@@ -187,6 +201,8 @@ export class elem {
   static canvas = canvas;
 
   static nav = nav;
+
+  static view = view;
 
   static edit = edit;
 
