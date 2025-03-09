@@ -246,16 +246,53 @@ elem.nav.zoomOut.addEventListener('click', () => {
   ScribeViewer.zoom(0.9, ScribeViewer.getStageCenter());
 });
 
-elem.edit.styleItalic.addEventListener('click', () => { ScribeViewer.CanvasSelection.modifySelectedWordStyle('italic'); });
-elem.edit.styleBold.addEventListener('click', () => { ScribeViewer.CanvasSelection.modifySelectedWordStyle('bold'); });
+elem.edit.styleItalic.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    italic: elem.edit.styleItalic.checked,
+  });
+});
 
-elem.edit.fontMinus.addEventListener('click', () => { ScribeViewer.CanvasSelection.modifySelectedWordFontSize('minus'); });
-elem.edit.fontPlus.addEventListener('click', () => { ScribeViewer.CanvasSelection.modifySelectedWordFontSize('plus'); });
-elem.edit.fontSize.addEventListener('change', () => { ScribeViewer.CanvasSelection.modifySelectedWordFontSize(elem.edit.fontSize.value); });
-elem.edit.wordFont.addEventListener('change', () => { ScribeViewer.CanvasSelection.modifySelectedWordFontFamily(elem.edit.wordFont.value); });
+elem.edit.styleBold.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    bold: elem.edit.styleBold.checked,
+  });
+});
 
-elem.edit.styleSmallCaps.addEventListener('click', () => ScribeViewer.CanvasSelection.modifySelectedWordSmallCaps(elem.edit.styleSmallCaps.classList.contains('active')));
-elem.edit.styleSuper.addEventListener('click', () => ScribeViewer.CanvasSelection.modifySelectedWordSuper(elem.edit.styleSuper.classList.contains('active')));
+elem.edit.styleSmallCaps.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    smallCaps: elem.edit.styleSmallCaps.checked,
+  });
+});
+
+elem.edit.styleSuper.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    sup: elem.edit.styleSuper.checked,
+  });
+});
+
+elem.edit.wordFont.addEventListener('change', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    font: elem.edit.wordFont.value,
+  });
+});
+
+elem.edit.fontSize.addEventListener('change', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    size: parseFloat(elem.edit.fontSize.value),
+  });
+});
+
+elem.edit.fontMinus.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    size: parseFloat(elem.edit.fontSize.value) - 1,
+  });
+});
+
+elem.edit.fontPlus.addEventListener('click', () => {
+  ScribeViewer.CanvasSelection.modifySelectedWordStyle({
+    size: parseFloat(elem.edit.fontSize.value) + 1,
+  });
+});
 
 elem.edit.ligatures.addEventListener('change', () => {
   scribe.opt.ligatures = elem.edit.ligatures.checked;
